@@ -1,10 +1,12 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar"; // Import the Navbar component
 
 const App: React.FC = () => {
     return (
-        <div className="App">
-            <h1>OMDB Movie App</h1>
-        </div>
+        <Router>
+            <Navbar /> {/* Include Navbar at the top of the application */}
+        </Router>
     );
 };
 
