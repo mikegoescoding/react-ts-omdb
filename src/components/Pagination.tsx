@@ -51,3 +51,5 @@ const Pagination: React.FC<PaginationProps> = ({
 };
 
 export default Pagination;
+
+// This component renders the pagination buttons for the user to navigate between pages of results.

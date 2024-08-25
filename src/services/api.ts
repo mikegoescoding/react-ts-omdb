@@ -29,4 +29,5 @@ export const getMovieDetails = async (id: string) => {
     }
 };
 
-// This file provides the functionality to communicate with the OMDB API and fetch movie data and details based on user input
+// This file provides the functionality to communicate with the
+// OMDB API and fetch movie data and details based on user input
