@@ -92,7 +92,8 @@ const Home: React.FC = () => {
     };
 
     return (
-        <div className="container homepage-movie-container">
+        <div className="container search-results-movie-container">
+            <h5 className="text-white my-4">Search results for "{query}"</h5>
             {error && <div className="alert alert-danger">{error}</div>}
             {movies.length > 0 ? (
                 <>

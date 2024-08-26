@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { getMovieDetails } from "../services/api";
 import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/MovieDetails.css"; // Custom CSS for MovieDetails
 
 const MovieDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [movie, setMovie] = useState<any>(null);
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
     const [alertMessage, setAlertMessage] = useState<string | null>(null);
     const [alertType, setAlertType] = useState<"success" | "warning">(
         "success"
@@ -22,7 +23,6 @@ const MovieDetails: React.FC = () => {
         fetchMovieDetails();
     }, [id]);
 
-    // Function to handle adding the movie to favorites
     const handleFavorite = (movie: any) => {
         const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
         const isAlreadyFavorite = favorites.some(
@@ -41,7 +41,6 @@ const MovieDetails: React.FC = () => {
             setAlertType("warning");
         }
 
-        // Clear the alert message after 3 seconds
         setTimeout(() => setAlertMessage(null), 3000);
     };
 
@@ -50,54 +49,49 @@ const MovieDetails: React.FC = () => {
     }
 
     return (
-        <div className="container">
-            <em className="badge rounded-pill bg-light text-dark">
-                ::/src/pages/MovieDetails.tsx/
-            </em>
-            <div className="row">
-                <div className="col-md-4">
-                    <img
-                        src={movie.Poster}
-                        alt={`${movie.Title} poster`}
-                        className="img-fluid"
-                    />
-                </div>
-                <div className="col-md-8">
-                    <h2>{movie.Title}</h2>
+        <div className="movie-details-wrapper">
+            <div
+                className="movie-details-background shadow"
+                style={{ backgroundImage: `url(${movie.Poster})` }}
+            >
+                <div className="movie-details-overlay"></div>
+                <div className="movie-details-info">
+                    <h1 className="movie-details-title">{movie.Title}</h1>
+                    <p className="movie-details-description">{movie.Plot}</p>
                     <p>
-                        <strong>Year:</strong> {movie.Year}
+                        <strong>Duration:</strong> {movie.Runtime}
+                    </p>
+                    <p>
+                        <strong>Rating:</strong> {movie.Rated}
+                    </p>
+                    <p>
+                        <strong>Cast:</strong> {movie.Actors}
                     </p>
                     <p>
                         <strong>Genre:</strong> {movie.Genre}
                     </p>
-                    <p>
-                        <strong>Director:</strong> {movie.Director}
-                    </p>
-                    <p>
-                        <strong>Plot:</strong> {movie.Plot}
-                    </p>
-                    <p>
-                        <strong>Actors:</strong> {movie.Actors}
-                    </p>
-                    <button
-                        className="btn btn-primary me-2"
-                        onClick={() => window.history.back()}
-                    >
-                        Back to Search
-                    </button>
-                    {/* New "Go to Favorites" Button */}
-                    <button
-                        className="btn btn-secondary me-2"
-                        onClick={() => navigate("/search-results/favorites")} // Navigate to Favorites page
-                    >
-                        Go to Favorites
-                    </button>
-                    <button
-                        className="btn btn-outline-secondary"
-                        onClick={() => handleFavorite(movie)}
-                    >
-                        Add to Favorites
-                    </button>
+                    <div className="movie-details-button-group">
+                        <button
+                            className="btn back-to-search-btn me-3"
+                            onClick={() => window.history.back()}
+                        >
+                            Back to Search
+                        </button>
+                        <button
+                            className="btn btn-outline-light"
+                            onClick={() => handleFavorite(movie)}
+                        >
+                            Add to Favorites
+                        </button>
+                        <a
+                            className="go-to-favorites-link link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            onClick={() =>
+                                navigate("/search-results/favorites")
+                            }
+                        >
+                            Go to Favorites
+                        </a>
+                    </div>
 
                     {alertMessage && (
                         <div

@@ -23,7 +23,7 @@ const Favorites: React.FC = () => {
     };
 
     const handleMovieClick = (id: string) => {
-        navigate(`/movie/${id}`); // Navigate to movie details page
+        navigate(`/search-results/movie/${id}`); // Navigate to movie details page
     };
 
     return (

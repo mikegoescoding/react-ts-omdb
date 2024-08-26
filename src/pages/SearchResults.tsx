@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Home from "./Home";
 import MovieDetails from "./MovieDetails";
 import Favorites from "./Favorites";
+import "../styles/SearchResults.css"; // Custom CSS for SearchResults
 
 const SearchResults: React.FC = () => {
     const location = useLocation();

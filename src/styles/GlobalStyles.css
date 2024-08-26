@@ -1,0 +1,40 @@
+/* ==== GLOBAL =============== */
+html,
+body,
+#root {
+    background-color: #252528;
+}
+.bg-grey {
+    background-color: #252528;
+}
+
+@media (min-width: 475px) {
+    .five-four-two-col-row {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .seven-four-two-col-row {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+}
+@media (min-width: 768px) {
+    .five-four-two-col-row {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    .seven-four-two-col-row {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+}
+@media (min-width: 1024px) {
+    .five-four-two-col-row {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+    .seven-four-two-col-row {
+        flex: 0 0 auto;
+        width: 14.25%;
+    }
+}

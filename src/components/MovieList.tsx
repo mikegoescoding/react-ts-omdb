@@ -15,7 +15,7 @@ const MovieList: React.FC<MovieListProps> = ({
     return (
         <div className="row">
             {movies.map((movie) => (
-                <div key={movie.imdbID} className="col-md-custom">
+                <div key={movie.imdbID} className="five-four-two-col-row ">
                     <MovieCard
                         movie={movie}
                         onClick={onMovieClick}

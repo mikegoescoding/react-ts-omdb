@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar"; // Import the SearchBar component
+import "../styles/Navbar.css"; // Custom CSS for Navbar
 
 interface NavbarProps {
     searchQuery?: string; // Add searchQuery prop
@@ -16,7 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({ searchQuery = "" }) => {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg bg-grey navbar-dark">
+        <nav className="navbar navbar-expand-lg bg-grey">
             <div className="container nav-container">
                 <Link
                     className="navbar-brand logo"

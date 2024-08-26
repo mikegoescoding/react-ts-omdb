@@ -1,0 +1,73 @@
+/* ==== MOVIE DETAILS =============== */
+.movie-details-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    color: white;
+}
+
+.movie-details-background {
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 80%;
+    border-radius: 0.825rem;
+}
+
+.movie-details-overlay {
+    background: linear-gradient(0deg, #252528 0%, rgba(41, 41, 41, 0) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.725rem;
+    z-index: 1;
+}
+
+.movie-details-info {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    max-height: 100%;
+    padding: 20px;
+    margin-left: 50px;
+}
+
+.movie-details-title {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.movie-details-description {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.movie-details-button-group {
+    margin-top: 20px;
+}
+.movie-details-button-group .back-to-search-btn {
+    background-color: #fd6e1d;
+    color: #fff;
+}
+.movie-details-button-group .back-to-search-btn:hover {
+    background-color: #fd6e1da6;
+    color: #fff;
+}
+.go-to-favorites-link,
+.go-to-favorites-link:active,
+.go-to-favorites-link:visited,
+.go-to-favorites-link:hover,
+.go-to-favorites-link:focus {
+    cursor: pointer;
+    font-size: 0.825rem;
+    vertical-align: bottom;
+    margin-left: 1rem;
+}
