@@ -1,52 +1,59 @@
-# Frontend Engineering Take-Home Exercise: Movie Library Application
+# Movie Search App
 
-The goal of this exercise is to implement a simple movie library application using the latest version of React and associated modern tools and libraries. Our expectation is that this will take a Senior Engineer 2-4 hours to complete, but we know you may be busy so take as much time as you need. Note that if you already have a recent project that generally fits the outline of this excercise, feel free to submit that instead. Thank you!
+A React and TypeScript application to search for movies using the OMDB API.
 
-## Exercise Background
+## Features
 
-The task is to create a simple movie library application. The app should fetch movie data from an API (such as [The OMDB API](http://www.omdbapi.com/?i=tt3896198&apikey=d15d95d) (http://www.omdbapi.com/?i=tt3896198&apikey=d15d95d) and allow the user to perform the following actions:
-
--   Search for a movie by its title
--   View a list of movies from search results (with pagination if applicable)
+-   Search for movies by title
+-   View a list of movies from search results (with pagination where applicable)
 -   Click on a movie to view more detailed information about it
--   Maintain a personal favorite movie list (local storage is fine)
+-   Add and/or remove movies from your favorites list stored in local storage
+-   Responsive design with Bootstrap styling
 
-The application should match the designs from our [figma project](https://www.figma.com/design/ORF7QBuKLgQxrqtfFZT6XY/Front-End-Design-Challenge?node-id=1-3&t=4vTnJ3TcJAzmdWSD-1).
+## Prerequisites
 
-**Note: If you've never used figma before, be sure to create an account and login. This will allow you to view the project and get access to export assets from the project, look up CSS details of any UI element, .etc.**
+This assumes you have the following basic requirements to begin:
 
-## User Stories
+-   **Node.js** and **npm** installed on your machine
+-   A text editor or IDE (e.g., VSCode)
+-   An OMDB API key
 
--   As a user, I want to see a search bar when I open the app.
--   As a user, I want to search for a movie by its title.
--   As a user, I want to click on a movie from the search results and view more detailed information about the movie (like the title, description, release date, rating, and poster).
--   As a user, I want to paginate through search results whenever there are additional paged results.
--   As a user, I want to add or remove movies from my personal favorite movie list.
+## Installation
 
-## Requirements
+To install and run the application locally, follow these steps:
 
--   Implement the application using React.
--   TypeScript is preferred but not requried.
--   The UI should closely match the given designs.
--   Implement error handling and loading states.
--   All code and comments should be written in English.
+1. **Clone the repository**:
 
-## Evaluation Criteria
+    ```bash
+    git clone https://github.com/mikegoescoding/movie-search-app.git
+    cd react-ts-omdb
 
--   Project structure and organization
--   React best practices and idiomatic usage of hooks and other React features
--   Code readability and maintainability
--   Understanding of the React ecosystem
--   State management
--   Final UI (matches mocks)
--   Error handling
+    ```
 
-## Submission
+2. **Install Dependencies**: (axios, react-router-dom, bootstrap)
 
-Please submit a link to the GitHub repository containing your solution, as well as instructions for running the application locally. The project should include a README with an overview of your project, technical choices, and any notes on areas you would improve given more time.
+    ```bash
+    npm install
 
-Remember, this exercise is not just about getting the functionality to work. We want to see how you approach problem-solving, your thought process, and your understanding of React and modern frontend engineering principles. Please commit early and often, with clear and concise commit messages.
+    ```
 
-## Note
+3. **Create a .env file in the root directory**:
 
-If you don't want to use OMDB API for any reason, you can use any other movie API or create a mock API using json-server or similar. The idea here is not about the data, but how you structure your project, your code, your state management, etc. Happy coding!
+-   Add your OMDB API key to the .env file: VITE_OMDB_API_KEY=your_api_key_here
+
+4. **Run the application**:
+
+    ```bash
+    npm run dev
+    ```
+
+---
+
+**Notes:**
+
+> **I challenged myself to go the TypeScript route and I feel overall it was successful and meets the requirements of the challenge. I mistakenly overlooked the landing page as I began and got myself into the weeds for a bit while I reworked the functionality. Given more time, I would refactor and refine each of the components as I know there are some opportunities to do so. I would also like to spend more time with the styling to refine, work out some responsive issues, adjust the pagination to reflect the exact style of the Figma file, and spend some more time with the MovieDetails cards. I wasn't 100% clear if the MovieDetails cards were meant to be modals or were just illustrated that way, but I do think that's a nice touch and would like to spend some more time with that as well.**
+
+---
+
+_Thanks,
+Michael /@mikegoescoding_
