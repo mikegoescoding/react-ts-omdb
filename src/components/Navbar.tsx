@@ -1,9 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SearchBar from "./SearchBar"; // Import the SearchBar component
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+    searchQuery?: string; // Add searchQuery prop
+}
+
+const Navbar: React.FC<NavbarProps> = ({ searchQuery = "" }) => {
+    const navigate = useNavigate();
+
+    const handleSearch = (query: string) => {
+        if (query.trim()) {
+            navigate(`/search-results/?search=${query}`);
+        }
+    };
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg bg-grey navbar-dark">
             <div className="container nav-container">
                 <Link
                     className="navbar-brand logo"
@@ -11,7 +24,7 @@ const Navbar: React.FC = () => {
                     title="Go to Home Page"
                 >
                     <img
-                        src="src/images/peachflix-logo.png"
+                        src="../src/images/peachflix-logo.png"
                         alt="Peachflix Logo"
                     />
                 </Link>
@@ -27,7 +40,7 @@ const Navbar: React.FC = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
+                    <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
                             <Link
                                 className="nav-link"
@@ -40,13 +53,20 @@ const Navbar: React.FC = () => {
                         <li className="nav-item">
                             <Link
                                 className="nav-link"
-                                to="/favorites"
+                                to="/search-results/favorites"
                                 title="Go to Favorites Page"
                             >
                                 Favorites
                             </Link>
                         </li>
                     </ul>
+                    <div className="ms-lg-3">
+                        {/* Pass the searchQuery prop */}
+                        <SearchBar
+                            onSearch={handleSearch}
+                            defaultValue={searchQuery} // Set the default value
+                        />
+                    </div>
                 </div>
             </div>
         </nav>
@@ -54,6 +74,3 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
-
-// Navbar component: brand/logo, navigation links to the Home and Favorites pages.
-// Takes advantage of Bootstrap classes to style and structure the navigation bar.

@@ -88,7 +88,7 @@ const MovieDetails: React.FC = () => {
                     {/* New "Go to Favorites" Button */}
                     <button
                         className="btn btn-secondary me-2"
-                        onClick={() => navigate("/favorites")} // Navigate to Favorites page
+                        onClick={() => navigate("/search-results/favorites")} // Navigate to Favorites page
                     >
                         Go to Favorites
                     </button>

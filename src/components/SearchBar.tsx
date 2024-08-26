@@ -1,35 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface SearchBarProps {
     onSearch: (query: string) => void;
+    defaultValue?: string; // Add defaultValue prop
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-    const [query, setQuery] = useState("");
+const SearchBar: React.FC<SearchBarProps> = ({
+    onSearch,
+    defaultValue = "",
+}) => {
+    const [query, setQuery] = useState(defaultValue);
+
+    useEffect(() => {
+        setQuery(defaultValue); // Update query when defaultValue changes
+    }, [defaultValue]);
 
     const handleSearch = () => {
-        if (query.trim()) {
-            onSearch(query);
-        }
+        onSearch(query);
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
             handleSearch();
         }
     };
 
     return (
-        <div className="input-group mb-3">
+        <div className="d-flex">
             <input
                 type="text"
-                className="form-control"
-                placeholder="Search for a movie..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={handleKeyPress} // Trigger search on 'Enter' key down in addition to clicking the search button
+                onKeyPress={handleKeyPress}
+                className="form-control"
+                placeholder="Search..."
             />
-            <button className="btn btn-primary" onClick={handleSearch}>
+            <button className="btn btn-primary ms-2" onClick={handleSearch}>
                 Search
             </button>
         </div>
@@ -37,7 +43,3 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 };
 
 export default SearchBar;
-
-// This component takes user input and triggers a search function when the
-// search button is clicked or the enter key is pressed. The search term is
-// passed to the parent component via the onSearch prop.

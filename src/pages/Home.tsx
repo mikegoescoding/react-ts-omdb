@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import SearchBar from "../components/SearchBar";
+import { useNavigate, useLocation } from "react-router-dom";
 import MovieList from "../components/MovieList";
 import Pagination from "../components/Pagination";
 import { searchMovies } from "../services/api";
@@ -18,51 +17,23 @@ const Home: React.FC = () => {
     const [query, setQuery] = useState("");
     const [page, setPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
-    const [isSearchMode, setIsSearchMode] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
-        const fetchRandomMovies = async () => {
-            try {
-                const keywords = [
-                    "action",
-                    "comedy",
-                    "drama",
-                    "thriller",
-                    "sci-fi",
-                ];
-                const randomKeyword =
-                    keywords[Math.floor(Math.random() * keywords.length)];
-                const data = await searchMovies(randomKeyword, 1);
+        const urlSearchParams = new URLSearchParams(location.search);
+        const searchQuery = urlSearchParams.get("search");
 
-                if (data.Search.length === 0) {
-                    throw new Error("No movies found. Try another search!");
-                }
-
-                const allMovies = data.Search;
-                const shuffledMovies = allMovies.sort(
-                    () => 0.5 - Math.random()
-                );
-                const randomMovies = shuffledMovies.slice(0, 9); // Select 9 random movies for 3x3 grid
-
-                setMovies(randomMovies);
-                setTotalResults(data.totalResults || 0);
-                setIsSearchMode(false);
-                setError(null);
-            } catch (err) {
-                // Check if `err` is an instance of Error
-                const errorMessage =
-                    err instanceof Error
-                        ? err.message
-                        : "An unknown error occurred.";
-                setError(errorMessage);
-            }
-        };
-
-        fetchRandomMovies();
-    }, []);
+        if (searchQuery) {
+            handleSearch(searchQuery);
+        } else {
+            setMovies([]);
+            setTotalResults(0);
+            setError("Please enter a search query.");
+        }
+    }, [location.search]);
 
     const handleSearch = async (searchQuery: string) => {
         setQuery(searchQuery);
@@ -76,21 +47,21 @@ const Home: React.FC = () => {
             setMovies(data.Search || []);
             setPage(1);
             setTotalResults(data.totalResults || 0);
-            setIsSearchMode(true);
             setError(null);
         } catch (err) {
-            // Check if `err` is an instance of Error
             const errorMessage =
                 err instanceof Error
                     ? err.message
                     : "An unknown error occurred.";
+            setMovies([]);
+            setTotalResults(0);
             setError(errorMessage);
         }
     };
 
     const handlePageChange = async (newPage: number) => {
         try {
-            const data = await searchMovies(query || "action", newPage);
+            const data = await searchMovies(query, newPage);
 
             if (data.Search.length === 0) {
                 throw new Error("No movies found.");
@@ -100,7 +71,6 @@ const Home: React.FC = () => {
             setPage(newPage);
             setError(null);
         } catch (err) {
-            // Check if `err` is an instance of Error
             const errorMessage =
                 err instanceof Error
                     ? err.message
@@ -110,7 +80,7 @@ const Home: React.FC = () => {
     };
 
     const handleMovieClick = (id: string) => {
-        navigate(`/movie/${id}`);
+        navigate(`/search-results/movie/${id}`);
     };
 
     const handleFavorite = (movie: any) => {
@@ -122,21 +92,28 @@ const Home: React.FC = () => {
     };
 
     return (
-        <div className="container">
-            <SearchBar onSearch={handleSearch} />
+        <div className="container homepage-movie-container">
             {error && <div className="alert alert-danger">{error}</div>}
-            <MovieList
-                movies={movies}
-                onMovieClick={handleMovieClick}
-                onFavorite={handleFavorite}
-            />
-            {isSearchMode && movies.length > 0 && (
-                <Pagination
-                    currentPage={page}
-                    totalResults={totalResults}
-                    resultsPerPage={10} // 9 results per page for 3x3 grid
-                    onPageChange={handlePageChange}
-                />
+            {movies.length > 0 ? (
+                <>
+                    <MovieList
+                        movies={movies}
+                        onMovieClick={handleMovieClick}
+                        onFavorite={handleFavorite}
+                    />
+                    <Pagination
+                        currentPage={page}
+                        totalResults={totalResults}
+                        resultsPerPage={10} // 10 results per page for 5x2 grid
+                        onPageChange={handlePageChange}
+                    />
+                </>
+            ) : (
+                !error && (
+                    <div className="alert alert-info">
+                        No results available. Please enter a search query.
+                    </div>
+                )
             )}
         </div>
     );
