@@ -3,6 +3,10 @@ html,
 body,
 #root {
     background-color: #252528;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
 }
 .bg-grey {
     background-color: #252528;
